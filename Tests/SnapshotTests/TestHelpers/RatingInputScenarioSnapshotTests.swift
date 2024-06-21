@@ -22,7 +22,6 @@ enum RatingInputScenarioSnapshotTests: String, CaseIterable {
 
     typealias Constants = ComponentSnapshotTestConstants
 
-
     // MARK: - Configurations
     func configuration(isSwiftUIComponent: Bool) -> [RatingInputConfigurationSnapshotTests] {
         switch self {
