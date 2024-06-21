@@ -53,7 +53,6 @@ public final class StarUIView: UIView {
         }
     }
 
-
     /// The fill mode.
     /// The fill mode determines how to round the rating value to fill the star.
     public var fillMode: StarFillMode {

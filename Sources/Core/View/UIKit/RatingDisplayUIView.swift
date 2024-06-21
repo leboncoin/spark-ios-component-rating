@@ -117,7 +117,6 @@ public class RatingDisplayUIView: UIView {
 
     // MARK: - Initialization
 
-
     /// Create a rating display view with the following parameters
     /// - Parameters:
     ///   - theme: The current theme
