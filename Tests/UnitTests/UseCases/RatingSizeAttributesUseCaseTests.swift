@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import SparkRating
-import SparkThemingTesting
+@_spi(SI_SPI) import SparkThemingTesting
 
 final class RatingSizeAttributesUseCaseTests: XCTestCase {
 

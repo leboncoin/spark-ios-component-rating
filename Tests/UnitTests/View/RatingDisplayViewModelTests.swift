@@ -11,7 +11,7 @@ import XCTest
 @_spi(SI_SPI) @testable import SparkRatingTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
-import SparkThemingTesting
+@_spi(SI_SPI) import SparkThemingTesting
 
 final class RatingDisplayViewModelTests: XCTestCase {
 
