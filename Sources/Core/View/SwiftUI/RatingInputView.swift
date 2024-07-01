@@ -60,7 +60,7 @@ struct RatingInputInternalView: View {
 
     // MARK: - Private variables
     @ObservedObject private var viewModel: RatingDisplayViewModel
-    @State private var displayRating: CGFloat
+    @State private var displayRating: Int
     @Binding private var rating: CGFloat
     @ScaledMetric private var scaleFactor: CGFloat = 1.0
     private let configuration: StarConfiguration
@@ -77,7 +77,7 @@ struct RatingInputInternalView: View {
         configuration: StarConfiguration
     ) {
         self._rating = rating
-        self._displayRating = State(initialValue: rating.wrappedValue)
+        self._displayRating = State(initialValue: Int(rating.wrappedValue))
         self.configuration = configuration
         self.viewModel = viewModel
     }
@@ -94,7 +94,7 @@ struct RatingInputInternalView: View {
         HStack(spacing: spacing) {
             ForEach((0...self.viewModel.count.maxIndex), id: \.self) { index in
                 StarView(
-                    rating: self.displayRating - CGFloat(index),
+                    rating: CGFloat(self.displayRating - index),
                     fillMode: .full,
                     lineWidth: lineWidth,
                     borderColor: colors.strokeColor.color,
@@ -112,12 +112,12 @@ struct RatingInputInternalView: View {
         .opacity(colors.opacity)
         .gesture(self.dragGesture(viewRect: viewRect))
         .frame(width: width, height: size)
-        .accessibilityIdentifier(RatingInputAccessibilityIdentifier.identifier)
         .accessibilityElement()
+        .accessibilityIdentifier(RatingInputAccessibilityIdentifier.identifier)
         .accessibilityAdjustableAction { direction in
             switch direction {
             case .increment:
-                guard self.displayRating <= CGFloat(self.viewModel.count.maxIndex) else { break }
+                guard self.displayRating <= self.viewModel.count.maxIndex else { break }
                 self.displayRating += 1
             case .decrement:
                 guard self.displayRating > 1 else { break }
@@ -125,7 +125,7 @@ struct RatingInputInternalView: View {
             @unknown default:
                 break
             }
-            self.rating = self.displayRating
+            self.rating = CGFloat(self.displayRating)
         }
         .accessibilityValue(self.displayRating.description)
     }
@@ -135,19 +135,19 @@ struct RatingInputInternalView: View {
         DragGesture(minimumDistance: 0.0)
             .onChanged { value in
                 if let index = viewRect.pointIndex(of: value.location, horizontalSlices: self.viewModel.count.rawValue) {
-                    self.displayRating = CGFloat(index + 1)
+                    self.displayRating = index + 1
                     self.viewModel.updateState(isPressed: true)
                 } else {
-                    self.displayRating = self._rating.wrappedValue
+                    self.displayRating = Int(self._rating.wrappedValue)
                     self.viewModel.updateState(isPressed: false)
                 }
             }
             .onEnded { value in
                 if let index = viewRect.pointIndex(of: value.location, horizontalSlices: self.viewModel.count.rawValue) {
-                    self.rating = CGFloat(index + 1)
-                    self.displayRating = CGFloat(index + 1)
+                    self.displayRating = index + 1
+                    self.rating = CGFloat(self.displayRating)
                 } else {
-                    self.displayRating = self._rating.wrappedValue
+                    self.displayRating = Int(self._rating.wrappedValue)
                 }
                 self.viewModel.updateState(isPressed: false)
             }

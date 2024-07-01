@@ -226,7 +226,7 @@ public class RatingDisplayUIView: UIView {
     }
 
     private func updateAccessibilityValue() {
-        self.accessibilityValue = "\(self.rating.description) / \(self.viewModel.count.rawValue)"
+        self.accessibilityValue = self.rating.description
     }
 
     private func didUpdate(rating: CGFloat) {

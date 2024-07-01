@@ -169,7 +169,7 @@ public final class RatingInputUIView: UIControl {
     }
 
     private func updateAccessibilityValue() {
-        self.accessibilityValue = "\(Int(self.rating))/\(self.ratingDisplay.count.rawValue)"
+        self.accessibilityValue = "\(Int(self.rating))"
     }
 
     // MARK: - Handling touch actions
