@@ -195,8 +195,8 @@ public final class StarUIView: UIView {
         } else {
             let shapeLayer = ShapeLayer(
                 shape: star,
-                fillColor: self.fillColor.cgColor,
-                strokeColor: self.borderColor.cgColor,
+                fillColor: self.fillColor.resolvedColor(with: self.traitCollection).cgColor,
+                strokeColor: self.borderColor.resolvedColor(with: self.traitCollection).cgColor,
                 fillPercentage: self.normalizedRating,
                 strokeWidth: self.lineWidth)
 
