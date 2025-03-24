@@ -1,47 +1,75 @@
-# Rating Display
-The rating display consist of either a one or five star rating. The star is configurable.
+# Rating
+
+**Spark** is the [Leboncoin](https://www.leboncoin.fr/)'s _Design System_.
+
+The repository here contains only the **iOS Rating** for _SwiftUI_ and _UIKit_.
+
+You can also see all of our Spark iOS repositories on [Github](https://github.com/orgs/leboncoin/repositories?q=spark-ios+sort%3Aname-asc).
 
 ## Specifications
+
 The rating specifications on Zeroheight is [here](https://spark.adevinta.com/1186e1705/p/63e136-rating/b/51f5d8).
 
-![Figma anatomy](https://github.com/adevinta/spark-ios-component-rating/blob/main/.github/assets/anatomy.png)
+![Figma anatomy](https://github.com/leboncoin/spark-ios-component-rating/blob/main/.github/assets/anatomy.png)
 
-Both a single rating star and the rating display are configured using the same component. 
+## Technical Documentation
 
-## RatingUIView / RatingView Initialization
-Initialization Parameters
-* `theme: Theme`. The current theme
-* `intent: RatingIntent.` The current rating intent. (At the moment, there is just one).
-* `count: RatingStarsCount`. The number of rating stars. The default is  = `.five`.
-* `size: RatingDisplaySize`. The size of the rating starts. The default is  = `.medium`.
-* `rating: CGFloat`. The current rating value. The default is = `0.0`. The rating value should be in the range [0...5]
-* `fillMode: StarFillMode`. How the partial rating star is to be filled. The default is `.half`.
-* `configuration: StarConfiguration`.  A configuration defining the appearance of the star. The default is `.default`.
+You are a developer ? A technical documentation in _DocC_ is available [here](https://leboncoin.github.io/spark-ios-component-rating/).
 
-# Rating Input
-The Rating Input is a control for setting the rating. There is only one size for the rating input, and five stars are always shown. It is not possible to remove a rating, or more precisely to set the value to 0, only programmatically. With the rating input, only whole numbers in the range between [1...5] can be entered.
+### Swift Package Manager
 
-In SwiftUI the changes will be bound to a binding which is passed in at initialization.
-In UIKit the changes may be retrieved by 1) subscribing to the publisher, 2) adding a value changed target action, 3) adding a delegate.
+_Note: Instructions below are for using **SPM** without the Xcode UI. It's the easiest to go to your Project Settings -> Swift Packages and add SparkRating from there._
 
-## Initialization SwiftUI
-* `theme: Theme`. The current theme.
-* `intent: RatingIntent`. The intent defining the colors. (Currently there is only one intent `main`).
-* `rating: Binding<CGFloat>`. A binding for setting the rating value. The set values will be whole numbers in the range [1...5].
-* `configuration: StarConfiguration`. A configuration of the shape of the star. This has a default value `.default`.
+To integrate using Apple's Swift package manager, without Xcode integration, add the following as a dependency to your `Package.swift`:
 
-## Initialization 
-* `theme: Theme`. The current theme.
-* `intent: RatingIntent`. The intent defining the colors. (Currently there is only one intent `main`).
-* `rating: CGFloat`. The current rating. This will only be rendered as a whole number rating.
-* `configuration: StarConfiguration`. A configuration of the shape of the star. This has a default value `.default`.
+```swift
+.package(url: "https://github.com/leboncoin/spark-ios-component-rating.git", .upToNextMajor(from: "1.0.0"))
+```
+
+and then specify `SparkRating` as a dependency of the Target in which you wish to use the SparkRating.
+
+Here's an example `Package.swift`:
+
+```swift
+// swift-tools-version:5.9
+import PackageDescription
+
+let package = Package(
+    name: "MyPackage",
+    platforms: [
+        .iOS(.v16)
+    ],
+    products: [
+        .library(
+            name: "MyPackage",
+            targets: ["MyPackage"]),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/leboncoin/spark-ios-component-rating.git",
+            .upToNextMajor(from: "1.0.0")
+        )
+    ],
+    targets: [
+        .target(
+            name: "MyPackage",
+            dependencies: [
+                .product(
+                    name: "SparkRating",
+                    package: "spark-ios-component-rating"
+                ),
+            ]
+        )
+    ]
+)
+```
 
 ## License
 
 ```
 MIT License
 
-Copyright (c) 2024 Adevinta
+Copyright (c) 2024 Leboncoin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
