@@ -12,8 +12,9 @@ import XCTest
 
 final class RatingSizeAttributesUseCaseTests: XCTestCase {
 
-    var spacing: LayoutSpacingGeneratedMock!
-    var sut: RatingSizeAttributesUseCase!
+    // MARK: - Properties
+    private var spacing: LayoutSpacingGeneratedMock!
+    private var sut: RatingSizeAttributesUseCase!
 
     // MARK: - Setup
     override func setUp() {

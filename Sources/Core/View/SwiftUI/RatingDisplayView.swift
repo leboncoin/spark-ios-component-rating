@@ -56,9 +56,9 @@ public struct RatingDisplayView: View {
     // MARK: - View
     public var body: some View {
         self.stars()
-            .accessibilityIdentifier(RatingDisplayAccessibilityIdentifier.identifier)
             .accessibilityElement()
-            .accessibilityValue("\(self.viewModel.ratingValue.description) / \(self.viewModel.count.rawValue)")
+            .accessibilityIdentifier(RatingDisplayAccessibilityIdentifier.identifier)
+            .accessibilityValue(self.viewModel.ratingValue.description)
     }
 
     @ViewBuilder
