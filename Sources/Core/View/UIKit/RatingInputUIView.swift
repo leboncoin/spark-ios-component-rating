@@ -1,6 +1,6 @@
 //
 //  RatingInputUIView.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by Michael Zimmermann on 30.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -21,7 +21,7 @@ public final class RatingInputUIView: UIControl {
 
     // MARK: - Properties
     /// The current theme
-    public var theme: Theme {
+    public var theme: any Theme {
         get {
             return self.ratingDisplay.theme
         }
@@ -86,7 +86,7 @@ public final class RatingInputUIView: UIControl {
     ///   - rating: the current rating. This should be a value in the range between 0...5. The default value is 0
     ///   - configuration: The star configuration, the default is `default`
     public init(
-        theme: Theme,
+        theme: any Theme,
         intent: RatingIntent,
         rating: CGFloat = 0.0,
         configuration: StarConfiguration = .default

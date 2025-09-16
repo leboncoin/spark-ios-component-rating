@@ -1,6 +1,6 @@
 //
 //  RatingGetColorUseCase.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by michael.zimmermann on 09.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -11,14 +11,14 @@ import SparkTheming
 
 // sourcery: AutoMockable
 protocol RatingGetColorsUseCaseable {
-    func execute(theme: Theme,
+    func execute(theme: any Theme,
                  intent: RatingIntent,
                  state: RatingState
     ) -> RatingColors
 }
 
 extension RatingGetColorsUseCaseable {
-    func execute(theme: Theme,
+    func execute(theme: any Theme,
                  intent: RatingIntent
     ) -> RatingColors {
         return self.execute(theme: theme, intent: intent, state: .standard)
@@ -34,7 +34,7 @@ struct RatingGetColorsUseCase: RatingGetColorsUseCaseable {
     ///   - theme: the current theme
     ///   - intent: the intent defining the color in the theme
     ///   - state: the current state
-    func execute(theme: Theme,
+    func execute(theme: any Theme,
                  intent: RatingIntent,
                  state: RatingState
     ) -> RatingColors {

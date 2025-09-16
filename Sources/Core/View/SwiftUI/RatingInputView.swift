@@ -1,6 +1,6 @@
 //
 //  RatingInputView.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by Michael Zimmermann on 06.12.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -27,7 +27,7 @@ public struct RatingInputView: View {
     ///   - rating: A binding containg the rating value. This should be a value within the range 0...5
     ///   - configuration: A configuration of the star. A default value is defined.
     public init(
-        theme: Theme,
+        theme: any Theme,
         intent: RatingIntent,
         rating: Binding<CGFloat>,
         configuration: StarConfiguration = .default

@@ -1,13 +1,13 @@
 //
 //  RatingSizeAttributesUseCaseTests.swift
-//  SparkRatingUnitTests
+//  SparkComponentRatingUnitTests
 //
 //  Created by Michael Zimmermann on 20.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 
 import XCTest
-@testable import SparkRating
+@testable import SparkComponentRating
 @_spi(SI_SPI) import SparkThemingTesting
 
 final class RatingSizeAttributesUseCaseTests: XCTestCase {

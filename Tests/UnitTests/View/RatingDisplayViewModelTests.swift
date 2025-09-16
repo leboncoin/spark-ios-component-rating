@@ -1,14 +1,14 @@
 //
 //  RatingDisplayViewModelTests.swift
-//  SparkRatingUnitTests
+//  SparkComponentRatingUnitTests
 //
 //  Created by Michael Zimmermann on 20.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
 //
 import Combine
 import XCTest
-@testable import SparkRating
-@_spi(SI_SPI) @testable import SparkRatingTesting
+@testable import SparkComponentRating
+@_spi(SI_SPI) @testable import SparkComponentRatingTesting
 @_spi(SI_SPI) import SparkCommon
 @_spi(SI_SPI) import SparkCommonTesting
 @_spi(SI_SPI) import SparkThemingTesting

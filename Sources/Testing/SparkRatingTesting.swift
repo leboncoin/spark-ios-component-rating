@@ -1,6 +1,6 @@
 //
 //  RatingViewModel.swift
-//  SparkRatingTesting
+//  SparkComponentRatingTesting
 //
 //  Created by robin.lemaire on 12/06/2024.
 //  Copyright © 2024 Leboncoin. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  ShapeLayer.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by michael.zimmermann on 08.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.

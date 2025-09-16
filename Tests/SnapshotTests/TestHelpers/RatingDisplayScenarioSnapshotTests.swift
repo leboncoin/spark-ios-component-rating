@@ -1,6 +1,6 @@
 //
 //  RatingDisplayScenarioSnapshotTests.swift
-//  SparkRatingSnapshotTests
+//  SparkComponentRatingSnapshotTests
 //
 //  Created by Michael Zimmermann on 20.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import SwiftUI
-@testable import SparkRating
+@testable import SparkComponentRating
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 
 enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
