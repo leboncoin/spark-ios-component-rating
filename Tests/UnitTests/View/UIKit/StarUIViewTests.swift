@@ -1,6 +1,6 @@
 //
 //  StarUIViewTests.swift
-//  SparkRatingUnitTests
+//  SparkComponentRatingUnitTests
 //
 //  Created by michael.zimmermann on 08.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -8,8 +8,8 @@
 
 import XCTest
 
-@testable import SparkRating
-@_spi(SI_SPI) @testable import SparkRatingTesting
+@testable import SparkComponentRating
+@_spi(SI_SPI) @testable import SparkComponentRatingTesting
 
 final class StarUIViewTests: XCTestCase {
 

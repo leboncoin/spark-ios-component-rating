@@ -1,6 +1,6 @@
 //
 //  RatingInputViewSnapshotTests.swift
-//  SparkRatingSnapshotTests
+//  SparkComponentRatingSnapshotTests
 //
 //  Created by Michael Zimmermann on 08.12.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 import UIKit
-@testable import SparkRating
+@testable import SparkComponentRating
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 import SparkTheming
 import SparkTheme
@@ -17,7 +17,7 @@ final class RatingInputViewSnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     // MARK: - Properties
 
-    private let theme: Theme = SparkTheme.shared
+    private let theme: any Theme = SparkTheme.shared
 
     // MARK: - Tests
 

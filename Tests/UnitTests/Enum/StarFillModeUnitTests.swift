@@ -1,6 +1,6 @@
 //
 //  StarFillModeUnitTests.swift
-//  SparkRatingUnitTests
+//  SparkComponentRatingUnitTests
 //
 //  Created by michael.zimmermann on 08.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import SparkRating
+@testable import SparkComponentRating
 
 final class StarFillModeUnitTests: XCTestCase {
 

@@ -5,18 +5,18 @@ import PackageDescription
 
 // swiftlint:disable all
 let package = Package(
-    name: "SparkRating",
+    name: "SparkComponentRating",
     platforms: [
         .iOS(.v16)
     ],
     products: [
         .library(
-            name: "SparkRating",
-            targets: ["SparkRating"]
+            name: "SparkComponentRating",
+            targets: ["SparkComponentRating"]
         ),
         .library(
-            name: "SparkRatingTesting",
-            targets: ["SparkRatingTesting"]
+            name: "SparkComponentRatingTesting",
+            targets: ["SparkComponentRatingTesting"]
         )
     ],
     dependencies: [
@@ -33,7 +33,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SparkRating",
+            name: "SparkComponentRating",
             dependencies: [
                 .product(
                     name: "SparkCommon",
@@ -47,9 +47,9 @@ let package = Package(
             path: "Sources/Core"
         ),
         .target(
-            name: "SparkRatingTesting",
+            name: "SparkComponentRatingTesting",
             dependencies: [
-                "SparkRating",
+                "SparkComponentRating",
                 .product(
                     name: "SparkCommon",
                     package: "spark-ios-common"
@@ -70,10 +70,10 @@ let package = Package(
             path: "Sources/Testing"
         ),
         .testTarget(
-            name: "SparkRatingUnitTests",
+            name: "SparkComponentRatingUnitTests",
             dependencies: [
-                "SparkRating",
-                "SparkRatingTesting",
+                "SparkComponentRating",
+                "SparkComponentRatingTesting",
                 .product(
                     name: "SparkCommonTesting",
                     package: "spark-ios-common"
@@ -86,10 +86,10 @@ let package = Package(
             path: "Tests/UnitTests"
         ),
         .testTarget(
-            name: "SparkRatingSnapshotTests",
+            name: "SparkComponentRatingSnapshotTests",
             dependencies: [
-                "SparkRating",
-                "SparkRatingTesting",
+                "SparkComponentRating",
+                "SparkComponentRatingTesting",
                 .product(
                     name: "SparkCommonSnapshotTesting",
                     package: "spark-ios-common"

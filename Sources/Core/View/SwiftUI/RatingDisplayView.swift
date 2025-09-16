@@ -1,6 +1,6 @@
 //
 //  RatingDisplayView.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by Michael Zimmermann on 04.12.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -33,7 +33,7 @@ public struct RatingDisplayView: View {
     ///   - fillMode: Define incomplete stars are to be filled. The default is `.half`
     ///   - configuration: A configuration of the star. A default value is defined.
     public init(
-        theme: Theme,
+        theme: any Theme,
         intent: RatingIntent,
         count: RatingStarsCount = .five,
         size: RatingDisplaySize = .medium,

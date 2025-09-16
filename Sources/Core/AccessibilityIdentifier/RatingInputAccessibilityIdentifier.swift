@@ -1,6 +1,6 @@
 //
 //  RatingInputAccessibilityIdentifier.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by Michael Zimmermann on 27.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.

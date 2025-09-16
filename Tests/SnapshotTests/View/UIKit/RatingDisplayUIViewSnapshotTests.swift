@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@testable import SparkRating
+@testable import SparkComponentRating
 @_spi(SI_SPI) import SparkCommonSnapshotTesting
 import SparkTheming
 import SparkTheme
@@ -16,7 +16,7 @@ final class RatingDisplayUIViewSnapshotTests: UIKitComponentSnapshotTestCase {
 
     // MARK: - Properties
 
-    private let theme: Theme = SparkTheme.shared
+    private let theme: any Theme = SparkTheme.shared
 
     // MARK: - Tests
 

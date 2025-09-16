@@ -1,6 +1,6 @@
 //
 //  RatingGetColorsUseCaseUnitTests.swift
-//  SparkRating
+//  SparkComponentRating
 //
 //  Created by michael.zimmermann on 09.11.23.
 //  Copyright © 2023 Leboncoin. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import SparkRating
+@testable import SparkComponentRating
 @_spi(SI_SPI) import SparkThemingTesting
 
 final class RatingGetColorsUseCaseUnitTests: XCTestCase {
