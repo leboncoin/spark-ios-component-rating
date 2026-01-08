@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
 struct RatingSizeAttributesDeprecated: Equatable {
     let borderWidth: CGFloat
     let height: CGFloat

@@ -9,6 +9,7 @@
 import Foundation
 import SparkTheming
 
+@available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
 struct RatingColorsDeprecated: Equatable {
     var fillColor: any ColorToken
     var strokeColor: any ColorToken

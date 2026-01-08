@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
 public enum RatingStarsCount: Int, CaseIterable {
     case one = 1
     case five = 5

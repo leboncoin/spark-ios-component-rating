@@ -9,6 +9,7 @@
 import Foundation
 @_spi(SI_SPI) import SparkCommon
 
+@available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
 struct RatingStateDeprecated: Updateable, Equatable {
     var isEnabled: Bool
     var isPressed: Bool
