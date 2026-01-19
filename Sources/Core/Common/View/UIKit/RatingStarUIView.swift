@@ -135,13 +135,13 @@ final class RatingStarUIView: UIView {
 
     // MARK: - Update UI
 
-    func updateSize() {
+    private func updateSize() {
         self.heightConstraint?.constant = self.size
         self.heightConstraint?.isActive = true
         self.updateConstraintsIfNeeded()
     }
 
-    func updateFilledMask() {
+    private func updateFilledMask() {
         self.fillImageView.layoutIfNeeded()
 
         CATransaction.begin()

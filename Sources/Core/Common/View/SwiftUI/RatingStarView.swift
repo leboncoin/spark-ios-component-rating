@@ -26,7 +26,7 @@ struct RatingStarView: View {
         case 1: // Filled image
             self.filledImage()
 
-        default: // Both image with mask
+        default: // Both images with mask
             ZStack {
                 self.filledImage()
                     .mask(ratio: self.ratio, alignment: .leading)
