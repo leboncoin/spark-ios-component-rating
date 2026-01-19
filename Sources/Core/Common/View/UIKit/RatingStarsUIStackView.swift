@@ -86,7 +86,7 @@ final class RatingStarsUIStackView: UIStackView {
 
     // MARK: - View setup
 
-    func setupView() {
+    private func setupView() {
         // View properties
         self.backgroundColor = .clear
         self.axis = .horizontal
