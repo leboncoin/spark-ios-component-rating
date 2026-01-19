@@ -22,6 +22,7 @@ final class RatingDisplaySizeTests: XCTestCase {
         // GIVEN / WHEN / THEN
         XCTAssertEqual(RatingDisplaySize.small.rawValue, 12)
         XCTAssertEqual(RatingDisplaySize.medium.rawValue, 16)
+        XCTAssertEqual(RatingDisplaySize.large.rawValue, 24)
     }
 
     func test_all_cases_only_includes_non_deprecated() {
@@ -29,10 +30,10 @@ final class RatingDisplaySizeTests: XCTestCase {
         let allCases = RatingDisplaySize.allCases
 
         // THEN
-        XCTAssertEqual(allCases.count, 2)
+        XCTAssertEqual(allCases.count, 3)
         XCTAssertTrue(allCases.contains(.small))
         XCTAssertTrue(allCases.contains(.medium))
-        XCTAssertFalse(allCases.contains(.large))
+        XCTAssertTrue(allCases.contains(.large))
         XCTAssertFalse(allCases.contains(.input))
     }
 
@@ -43,5 +44,13 @@ final class RatingDisplaySizeTests: XCTestCase {
         XCTAssertEqual(RatingDisplaySize(rawValue: 24), .large)
         XCTAssertEqual(RatingDisplaySize(rawValue: 40), .input)
         XCTAssertNil(RatingDisplaySize(rawValue: 999))
+    }
+
+    func test_cgFloat_returns_correct_values() {
+        // GIVEN / WHEN / THEN
+        XCTAssertEqual(RatingDisplaySize.small.cgFloat, 12.0)
+        XCTAssertEqual(RatingDisplaySize.medium.cgFloat, 16.0)
+        XCTAssertEqual(RatingDisplaySize.large.cgFloat, 24.0)
+        XCTAssertEqual(RatingDisplaySize.input.cgFloat, 40.0)
     }
 }

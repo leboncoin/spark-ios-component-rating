@@ -29,4 +29,12 @@ final class RatingDisplayAccessibilityIdentifierTests: XCTestCase {
         // THEN
         XCTAssertEqual(viewIdentifier, "spark-rating-display")
     }
+
+    func test_text_property() {
+        // GIVEN / WHEN
+        let textIdentifier = RatingDisplayAccessibilityIdentifier.text
+
+        // THEN
+        XCTAssertEqual(textIdentifier, "spark-rating-display-text")
+    }
 }

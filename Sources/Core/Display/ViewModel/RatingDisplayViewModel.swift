@@ -14,25 +14,25 @@ class RatingDisplayViewModel: RatingViewModel {
 
     // MARK: - Published Properties
 
-    @Published private(set) var colors = RatingColors()
-    @Published private(set) var spacing: CGFloat = .zero
+    @Published private(set) var spacings = RatingDisplaySpacings()
+    @Published private(set) var textStyle = RatingDisplayTextStyle()
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    override var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
-            self.setColors()
-            self.setSpacing()
+            self.setSpacings()
+            self.setTextStyle()
         }
     }
 
-    var stars: RatingDisplayStars? {
+    var size: RatingDisplaySize? {
         didSet {
-            guard oldValue != self.stars, self.alreadyUpdateAll else { return }
+            guard oldValue != self.size, self.alreadyUpdateAll else { return }
 
-            self.setSpacing()
+            self.setTextStyle()
         }
     }
 
@@ -42,50 +42,52 @@ class RatingDisplayViewModel: RatingViewModel {
 
     // MARK: - Use Case Properties
 
-    private let getColorsUseCase: any RatingGetColorsUseCaseable
-    private let getSpacingUseCase: any RatingDisplayGetSpacingUseCaseable
+    private let getSpacingUseCase: any RatingDisplayGetSpacingsUseCaseable
+    private let getTextStyleUseCase: any RatingDisplayGetTextStyleUseCaseable
 
     // MARK: - Initialization
 
     init(
-        getColorsUseCase: any RatingGetColorsUseCaseable = RatingGetColorsUseCase(),
-        getSpacingUseCase: any RatingDisplayGetSpacingUseCaseable = RatingDisplayGetSpacingUseCase()
+        getSpacingUseCase: any RatingDisplayGetSpacingsUseCaseable = RatingDisplayGetSpacingsUseCase(),
+        getTextStyleUseCase: any RatingDisplayGetTextStyleUseCaseable = RatingDisplayGetTextStyleUseCase()
     ) {
-        self.getColorsUseCase = getColorsUseCase
         self.getSpacingUseCase = getSpacingUseCase
+        self.getTextStyleUseCase = getTextStyleUseCase
     }
 
     // MARK: - Setup
 
     func setup(
         theme: any Theme,
-        stars: RatingDisplayStars
+        size: RatingDisplaySize
     ) {
         self.theme = theme
-        self.stars = stars
+        self.size = size
 
-        self.setColors()
-        self.setSpacing()
+        self.setup(theme: theme)
+
+        self.setSpacings()
+        self.setTextStyle()
 
         self.alreadyUpdateAll = true
     }
 
     // MARK: - Private Setter
 
-    private func setColors() {
+    private func setSpacings() {
         guard let theme else { return }
 
-        self.colors = self.getColorsUseCase.execute(
+        self.spacings = self.getSpacingUseCase.execute(
             theme: theme
         )
     }
 
-    private func setSpacing() {
-        guard let theme, let stars else { return }
+    private func setTextStyle() {
+        guard let theme, let size else { return }
 
-        self.spacing = self.getSpacingUseCase.execute(
+        self.textStyle = self.getTextStyleUseCase.execute(
             theme: theme,
-            stars: stars
+            size: size
         )
     }
 }

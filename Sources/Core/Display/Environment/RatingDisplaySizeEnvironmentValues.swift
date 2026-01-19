@@ -14,7 +14,7 @@ extension EnvironmentValues {
 
 public extension View {
 
-    /// Set the **displaySize** on the ``SparkRatingDisplay``.
+    /// Set the **size** on the ``SparkRatingDisplay``.
     ///
     /// The default value for this property is *RatingDisplaySize.medium*.
     func sparkRatingDisplaySize(_ size: RatingDisplaySize) -> some View {

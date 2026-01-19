@@ -13,7 +13,7 @@ struct RatingColors: Equatable {
     // MARK: - Properties
 
     var filledStarTintColorToken: any ColorToken = ColorTokenClear()
-    var emptyStarTintColorToken: any ColorToken = ColorTokenClear()
+    var strokeStarTintColorToken: any ColorToken = ColorTokenClear()
 }
 
 // MARK: Hashable & Equatable
@@ -22,11 +22,11 @@ extension RatingColors {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.filledStarTintColorToken)
-        hasher.combine(self.emptyStarTintColorToken)
+        hasher.combine(self.strokeStarTintColorToken)
     }
 
     static func == (lhs: RatingColors, rhs: RatingColors) -> Bool {
         return lhs.filledStarTintColorToken.equals(rhs.filledStarTintColorToken) &&
-        lhs.emptyStarTintColorToken.equals(rhs.emptyStarTintColorToken)
+        lhs.strokeStarTintColorToken.equals(rhs.strokeStarTintColorToken)
     }
 }

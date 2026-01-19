@@ -27,50 +27,16 @@ final class RatingGetColorsUseCaseTests: XCTestCase {
         self.sut = RatingGetColorsUseCase()
     }
 
-    // MARK: - Tests Without IsPressed parameter
+    // MARK: - Tests
 
-    func test_execute_without_isPressed_parameter() {
+    func test_execute() {
         // GIVEN / WHEN
         let colors = self.sut.execute(theme: self.theme)
 
         // THEN
         let expectedColors = RatingColors(
             filledStarTintColorToken: self.theme.colors.main.mainVariant,
-            emptyStarTintColorToken: self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)
-        )
-
-        XCTAssertEqual(colors, expectedColors)
-    }
-
-    // MARK: - Tests With IsPressed parameter
-
-    func test_execute_when_not_pressed() {
-        // GIVEN / WHEN
-        let colors = self.sut.execute(
-            theme: self.theme,
-            isPressed: false
-        )
-
-        // THEN
-        let expectedColors = RatingColors(
-            filledStarTintColorToken: self.theme.colors.main.mainVariant,
-            emptyStarTintColorToken: self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)
-        )
-
-        XCTAssertEqual(colors, expectedColors)
-    }
-
-    func test_execute_when_pressed() {
-        // GIVEN / WHEN
-        let colors = self.sut.execute(
-            theme: self.theme,
-            isPressed: true
-        )
-
-        // THEN
-        let expectedColors = RatingColors(
-            filledStarTintColorToken: self.theme.colors.states.mainVariantPressed,
-            emptyStarTintColorToken: self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)
+            strokeStarTintColorToken: self.theme.colors.base.onSurface.opacity(self.theme.dims.dim3)
         )
 
         XCTAssertEqual(colors, expectedColors)

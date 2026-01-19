@@ -11,7 +11,6 @@ import Foundation
 public enum RatingDisplaySize: Int, CaseIterable {
     case small = 12
     case medium = 16
-    @available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
     case large = 24
     @available(*, deprecated, message: "Not used anymore by the new SparkRatingInput/SparkRatingDisplay or SparkUIRatingInput/SparkUIRatingDisplay")
     case input = 40
@@ -20,9 +19,14 @@ public enum RatingDisplaySize: Int, CaseIterable {
 
     public static var allCases: [RatingDisplaySize] = [
         .small,
-        .medium
+        .medium,
+        .large
     ]
 
     /// The default case. Equals to **.medium**.
     public static let `default`: Self = .medium
+
+    internal var cgFloat: CGFloat {
+        CGFloat(self.rawValue)
+    }
 }

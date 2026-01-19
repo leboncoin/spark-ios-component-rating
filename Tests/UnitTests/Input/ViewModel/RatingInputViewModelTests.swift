@@ -24,19 +24,19 @@ final class RatingInputViewModelTests: XCTestCase {
         // THEN
         XCTAssertNil(stub.viewModel.theme)
         XCTAssertNil(stub.viewModel.isEnabled)
-        XCTAssertFalse(stub.viewModel.isPressed)
 
         XCTAssertEqualToExpected(
             on: stub,
-            otherColors: RatingColors(),
             otherDim: 0,
             otherSpacing: 0
         )
 
         XCTAssertNotCalled(
             on: stub,
-            getColorsUseCase: true,
             getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
             getSpacingUseCase: true
         )
     }
@@ -54,14 +54,6 @@ final class RatingInputViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqualToExpected(on: stub)
 
-        RatingGetColorsUseCaseableMockTest.XCTAssert(
-            stub.getColorsUseCaseMock,
-            expectedNumberOfCalls: 1,
-            givenTheme: stub.givenTheme,
-            givenIsPressed: stub.givenIsPressed,
-            expectedReturnValue: stub.expectedColors
-        )
-
         RatingInputGetDimUseCaseableMockTest.XCTAssert(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
@@ -77,7 +69,12 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSpacing
         )
 
-        XCTAssertNotCalled(on: stub)
+        XCTAssertNotCalled(
+            on: stub,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true
+        )
     }
 
     // MARK: - Property Changes
@@ -98,14 +95,6 @@ final class RatingInputViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqualToExpected(on: stub)
 
-        RatingGetColorsUseCaseableMockTest.XCTAssert(
-            stub.getColorsUseCaseMock,
-            expectedNumberOfCalls: 1,
-            givenTheme: newTheme,
-            givenIsPressed: stub.givenIsPressed,
-            expectedReturnValue: stub.expectedColors
-        )
-
         RatingInputGetDimUseCaseableMockTest.XCTAssert(
             stub.getDimUseCaseMock,
             expectedNumberOfCalls: 1,
@@ -121,7 +110,12 @@ final class RatingInputViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSpacing
         )
 
-        XCTAssertNotCalled(on: stub)
+        XCTAssertNotCalled(
+            on: stub,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true
+        )
     }
 
     func test_isEnabledChanged_shouldUpdateDimOnly() {
@@ -150,38 +144,9 @@ final class RatingInputViewModelTests: XCTestCase {
 
         XCTAssertNotCalled(
             on: stub,
-            getColorsUseCase: true,
-            getSpacingUseCase: true
-        )
-    }
-
-    func test_isPressedChanged_shouldUpdateColorsOnly() {
-        // GIVEN
-        let stub = Stub()
-        let viewModel = stub.viewModel
-
-        viewModel.setup(stub: stub)
-        stub.resetMockedData()
-
-        let newIsPressed = !stub.givenIsPressed
-
-        // WHEN
-        viewModel.isPressed = newIsPressed
-
-        // THEN
-        XCTAssertEqualToExpected(on: stub)
-
-        RatingGetColorsUseCaseableMockTest.XCTAssert(
-            stub.getColorsUseCaseMock,
-            expectedNumberOfCalls: 1,
-            givenTheme: stub.givenTheme,
-            givenIsPressed: newIsPressed,
-            expectedReturnValue: stub.expectedColors
-        )
-
-        XCTAssertNotCalled(
-            on: stub,
-            getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
             getSpacingUseCase: true
         )
     }
@@ -194,20 +159,20 @@ final class RatingInputViewModelTests: XCTestCase {
         // WHEN
         viewModel.theme = ThemeGeneratedMock.mocked()
         viewModel.isEnabled = !stub.givenIsEnabled
-        viewModel.isPressed = !stub.givenIsPressed
 
         // THEN
         XCTAssertEqualToExpected(
             on: stub,
-            otherColors: RatingColors(),
             otherDim: 0,
             otherSpacing: 0
         )
 
         XCTAssertNotCalled(
             on: stub,
-            getColorsUseCase: true,
             getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
             getSpacingUseCase: true
         )
     }
@@ -223,15 +188,16 @@ final class RatingInputViewModelTests: XCTestCase {
         // WHEN
         viewModel.theme = stub.givenTheme
         viewModel.isEnabled = stub.givenIsEnabled
-        viewModel.isPressed = stub.givenIsPressed
 
         // THEN
         XCTAssertEqualToExpected(on: stub)
 
         XCTAssertNotCalled(
             on: stub,
-            getColorsUseCase: true,
             getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
             getSpacingUseCase: true
         )
     }
@@ -253,8 +219,110 @@ final class RatingInputViewModelTests: XCTestCase {
 
         XCTAssertNotCalled(
             on: stub,
-            getColorsUseCase: true,
             getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
+            getSpacingUseCase: true
+        )
+    }
+
+    // MARK: - GetNewValue
+
+    func test_getNewValue_shouldCallUseCase() {
+        // GIVEN
+        let stub = Stub()
+        let viewModel = stub.viewModel
+
+        let givenRatio: CGFloat = 0.5
+
+        viewModel.setup(stub: stub)
+        stub.resetMockedData()
+
+        // WHEN
+        let result = viewModel.getNewValue(from: givenRatio)
+
+        // THEN
+        XCTAssertEqual(result, stub.expectedNewValue)
+
+        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+            stub.getNewValueUseCaseMock,
+            expectedNumberOfCalls: 1,
+            givenRatio: givenRatio,
+            expectedReturnValue: stub.expectedNewValue
+        )
+
+        XCTAssertNotCalled(
+            on: stub,
+            getDimUseCase: true,
+            getIncrementValueUseCase: true,
+            getDecrementValueUseCase: true,
+            getSpacingUseCase: true
+        )
+    }
+
+    func test_getIncrementValue_shouldCallUseCase() {
+        // GIVEN
+        let stub = Stub()
+        let viewModel = stub.viewModel
+
+        let givenValue: Double = 2.4
+
+        viewModel.setup(stub: stub)
+        stub.resetMockedData()
+
+        // WHEN
+        let result = viewModel.getIncrementedValue(from: givenValue)
+
+        // THEN
+        XCTAssertEqual(result, stub.expectedIncrementedValue)
+
+        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+            stub.getNewValueUseCaseMock,
+            expectedNumberOfCalls: 1,
+            givenValueToIncrement: givenValue,
+            givenIsEnabled: stub.givenIsEnabled,
+            expectedReturnValue: stub.expectedIncrementedValue
+        )
+
+        XCTAssertNotCalled(
+            on: stub,
+            getDimUseCase: true,
+            getNewValueUseCase: true,
+            getDecrementValueUseCase: true,
+            getSpacingUseCase: true
+        )
+    }
+
+    func test_getDecrementValue_shouldCallUseCase() {
+        // GIVEN
+        let stub = Stub()
+        let viewModel = stub.viewModel
+
+        let givenValue: Double = 4.4
+
+        viewModel.setup(stub: stub)
+        stub.resetMockedData()
+
+        // WHEN
+        let result = viewModel.getDecrementedValue(from: givenValue)
+
+        // THEN
+        XCTAssertEqual(result, stub.expectedDecrementedValue)
+
+        RatingInputGetNewValueUseCaseableMockTest.XCTAssert(
+            stub.getNewValueUseCaseMock,
+            expectedNumberOfCalls: 1,
+            givenValueToDecrement: givenValue,
+            givenIsEnabled: stub.givenIsEnabled,
+            expectedReturnValue: stub.expectedDecrementedValue
+        )
+
+        XCTAssertNotCalled(
+            on: stub,
+            getDimUseCase: true,
+            getNewValueUseCase: true,
+            getIncrementValueUseCase: true,
             getSpacingUseCase: true
         )
     }
@@ -272,14 +340,17 @@ private final class Stub {
 
     // MARK: - Expected
 
-    let expectedColors = RatingColors()
     let expectedDim: CGFloat = 0.0
     let expectedSpacing: CGFloat = 12.0
 
+    let expectedNewValue: Double = 2.5
+    let expectedIncrementedValue: Double = 4.1
+    let expectedDecrementedValue: Double = 1.5
+
     // MARK: - Use Case Mocks
 
-    let getColorsUseCaseMock: RatingGetColorsUseCaseableGeneratedMock
     let getDimUseCaseMock: RatingInputGetDimUseCaseableGeneratedMock
+    let getNewValueUseCaseMock: RatingInputGetNewValueUseCaseableGeneratedMock
     let getSpacingUseCaseMock: RatingInputGetSpacingUseCaseableGeneratedMock
 
     // MARK: - ViewModel
@@ -289,31 +360,33 @@ private final class Stub {
     // MARK: - Initialization
 
     init() {
-        let getColorsUseCaseMock = RatingGetColorsUseCaseableGeneratedMock()
-        getColorsUseCaseMock.executeWithThemeAndIsPressedReturnValue = self.expectedColors
-
         let getDimUseCaseMock = RatingInputGetDimUseCaseableGeneratedMock()
         getDimUseCaseMock.executeWithThemeAndIsEnabledReturnValue = self.expectedDim
+
+        let getNewValueUseCaseMock = RatingInputGetNewValueUseCaseableGeneratedMock()
+        getNewValueUseCaseMock.executeWithRatioReturnValue = self.expectedNewValue
+        getNewValueUseCaseMock.executeIncrementWithValueToIncrementAndIsEnabledReturnValue = self.expectedIncrementedValue
+        getNewValueUseCaseMock.executeDecrementWithValueToDecrementAndIsEnabledReturnValue = self.expectedDecrementedValue
 
         let getSpacingUseCaseMock = RatingInputGetSpacingUseCaseableGeneratedMock()
         getSpacingUseCaseMock.executeWithThemeReturnValue = self.expectedSpacing
 
         self.viewModel = RatingInputViewModel(
-            getColorsUseCase: getColorsUseCaseMock,
             getDimUseCase: getDimUseCaseMock,
+            getNewValueUseCase: getNewValueUseCaseMock,
             getSpacingUseCase: getSpacingUseCaseMock
         )
 
-        self.getColorsUseCaseMock = getColorsUseCaseMock
         self.getDimUseCaseMock = getDimUseCaseMock
+        self.getNewValueUseCaseMock = getNewValueUseCaseMock
         self.getSpacingUseCaseMock = getSpacingUseCaseMock
     }
 
     // MARK: - Helpers
 
     func resetMockedData() {
-        self.getColorsUseCaseMock.reset()
         self.getDimUseCaseMock.reset()
+        self.getNewValueUseCaseMock.reset()
         self.getSpacingUseCaseMock.reset()
     }
 }
@@ -332,18 +405,30 @@ private extension RatingInputViewModel {
 
 private func XCTAssertNotCalled(
     on stub: Stub,
-    getColorsUseCase: Bool = false,
     getDimUseCase: Bool = false,
+    getNewValueUseCase: Bool = false,
+    getIncrementValueUseCase: Bool = false,
+    getDecrementValueUseCase: Bool = false,
     getSpacingUseCase: Bool = false
 ) {
-    RatingGetColorsUseCaseableMockTest.XCTCalled(
-        stub.getColorsUseCaseMock,
-        executeWithThemeAndIsPressedCalled: !getColorsUseCase
-    )
-
     RatingInputGetDimUseCaseableMockTest.XCTCalled(
         stub.getDimUseCaseMock,
         executeWithThemeAndIsEnabledCalled: !getDimUseCase
+    )
+
+    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+        stub.getNewValueUseCaseMock,
+        executeWithRatioCalled: !getNewValueUseCase
+    )
+
+    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+        stub.getNewValueUseCaseMock,
+        executeIncrementWithValueToIncrementAndIsEnabledCalled: !getIncrementValueUseCase
+    )
+
+    RatingInputGetNewValueUseCaseableMockTest.XCTCalled(
+        stub.getNewValueUseCaseMock,
+        executeDecrementWithValueToDecrementAndIsEnabledCalled: !getDecrementValueUseCase
     )
 
     RatingInputGetSpacingUseCaseableMockTest.XCTCalled(
@@ -354,16 +439,11 @@ private func XCTAssertNotCalled(
 
 private func XCTAssertEqualToExpected(
     on stub: Stub,
-    otherColors: RatingColors? = nil,
     otherDim: CGFloat? = nil,
     otherSpacing: CGFloat? = nil
 ) {
     let viewModel = stub.viewModel
 
-    XCTAssertTrue(
-        viewModel.colors == (otherColors ?? stub.expectedColors),
-        "Wrong colors value"
-    )
     XCTAssertEqual(
         viewModel.dim,
         otherDim ?? stub.expectedDim,

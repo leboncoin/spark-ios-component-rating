@@ -14,7 +14,7 @@ extension EnvironmentValues {
 
 public extension View {
 
-    /// Set the **displayStars** on the ``SparkRatingDisplay``.
+    /// Set the **number of stars** on the ``SparkRatingDisplay``.
     ///
     /// The default value for this property is *RatingDisplayStars.five*.
     func sparkRatingDisplayStars(_ stars: RatingDisplayStars) -> some View {

@@ -22,7 +22,7 @@ final class RatingColorsTests: XCTestCase {
 
         // THEN
         XCTAssertTrue(colors.filledStarTintColorToken.equals(ColorTokenClear()))
-        XCTAssertTrue(colors.emptyStarTintColorToken.equals(ColorTokenClear()))
+        XCTAssertTrue(colors.strokeStarTintColorToken.equals(ColorTokenClear()))
     }
 
     func test_equality_when_same_colors() {
@@ -32,12 +32,12 @@ final class RatingColorsTests: XCTestCase {
 
         let colors1 = RatingColors(
             filledStarTintColorToken: filledStarToken,
-            emptyStarTintColorToken: emptyStarToken
+            strokeStarTintColorToken: emptyStarToken
         )
 
         let colors2 = RatingColors(
             filledStarTintColorToken: filledStarToken,
-            emptyStarTintColorToken: emptyStarToken
+            strokeStarTintColorToken: emptyStarToken
         )
 
         // THEN
@@ -52,12 +52,12 @@ final class RatingColorsTests: XCTestCase {
 
         let colors1 = RatingColors(
             filledStarTintColorToken: filledStarToken1,
-            emptyStarTintColorToken: emptyStarToken
+            strokeStarTintColorToken: emptyStarToken
         )
 
         let colors2 = RatingColors(
             filledStarTintColorToken: filledStarToken2,
-            emptyStarTintColorToken: emptyStarToken
+            strokeStarTintColorToken: emptyStarToken
         )
 
         // THEN
@@ -72,12 +72,12 @@ final class RatingColorsTests: XCTestCase {
 
         let colors1 = RatingColors(
             filledStarTintColorToken: filledStarToken,
-            emptyStarTintColorToken: emptyStarToken1
+            strokeStarTintColorToken: emptyStarToken1
         )
 
         let colors2 = RatingColors(
             filledStarTintColorToken: filledStarToken,
-            emptyStarTintColorToken: emptyStarToken2
+            strokeStarTintColorToken: emptyStarToken2
         )
 
         // THEN

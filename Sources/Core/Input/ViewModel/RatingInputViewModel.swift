@@ -14,17 +14,15 @@ class RatingInputViewModel: RatingViewModel {
 
     // MARK: - Published Properties
 
-    @Published private(set) var colors = RatingColors()
     @Published private(set) var dim: CGFloat = .zero
     @Published private(set) var spacing: CGFloat = .zero
 
     // MARK: - Properties
 
-    var theme: (any Theme)? {
+    override var theme: (any Theme)? {
         didSet {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
-            self.setColors()
             self.setDim()
             self.setSpacing()
         }
@@ -38,34 +36,28 @@ class RatingInputViewModel: RatingViewModel {
         }
     }
 
-    var isPressed: Bool = false {
-        didSet {
-            guard oldValue != self.isPressed, self.alreadyUpdateAll else { return }
-
-            self.setColors()
-        }
-    }
-
     // MARK: - Private properties
 
     private var alreadyUpdateAll = false
 
     // MARK: - Use Case Properties
 
-    private let getColorsUseCase: any RatingGetColorsUseCaseable
     private let getDimUseCase: any RatingInputGetDimUseCaseable
+    private let getNewValueUseCase: any RatingInputGetNewValueUseCaseable
     private let getSpacingUseCase: any RatingInputGetSpacingUseCaseable
 
     // MARK: - Initialization
 
     init(
-        getColorsUseCase: any RatingGetColorsUseCaseable = RatingGetColorsUseCase(),
         getDimUseCase: any RatingInputGetDimUseCaseable = RatingInputGetDimUseCase(),
+        getNewValueUseCase: any RatingInputGetNewValueUseCaseable = RatingInputGetNewValueUseCase(),
         getSpacingUseCase: any RatingInputGetSpacingUseCaseable = RatingInputGetSpacingUseCase()
     ) {
-        self.getColorsUseCase = getColorsUseCase
         self.getDimUseCase = getDimUseCase
+        self.getNewValueUseCase = getNewValueUseCase
         self.getSpacingUseCase = getSpacingUseCase
+
+        super.init()
     }
 
     // MARK: - Setup
@@ -74,10 +66,10 @@ class RatingInputViewModel: RatingViewModel {
         theme: any Theme,
         isEnabled: Bool
     ) {
-        self.theme = theme
         self.isEnabled = isEnabled
 
-        self.setColors()
+        self.setup(theme: theme)
+
         self.setDim()
         self.setSpacing()
 
@@ -85,15 +77,6 @@ class RatingInputViewModel: RatingViewModel {
     }
 
     // MARK: - Private Setter
-
-    private func setColors() {
-        guard let theme else { return }
-
-        self.colors = self.getColorsUseCase.execute(
-            theme: theme,
-            isPressed: self.isPressed
-        )
-    }
 
     private func setDim() {
         guard let theme, let isEnabled else { return }
@@ -109,6 +92,32 @@ class RatingInputViewModel: RatingViewModel {
 
         self.spacing = self.getSpacingUseCase.execute(
             theme: theme
+        )
+    }
+
+    // MARK: - Getter
+
+    func getNewValue(from ratio: CGFloat) -> Double {
+        return self.getNewValueUseCase.execute(
+            ratio: ratio
+        )
+    }
+
+    func getIncrementedValue(from value: Double) -> Double? {
+        guard let isEnabled else { return nil }
+
+        return self.getNewValueUseCase.executeIncrement(
+            value: value,
+            isEnabled: isEnabled
+        )
+    }
+
+    func getDecrementedValue(from value: Double) -> Double? {
+        guard let isEnabled else { return nil }
+
+        return self.getNewValueUseCase.executeDecrement(
+            value: value,
+            isEnabled: isEnabled
         )
     }
 }
