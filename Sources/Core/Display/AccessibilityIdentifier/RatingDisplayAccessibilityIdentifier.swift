@@ -19,4 +19,7 @@ public enum RatingDisplayAccessibilityIdentifier {
 
     /// The view accessibility identifier.
     public static let view = "spark-rating-display"
+
+    /// The text accessibility identifier.
+    public static let text = "spark-rating-display-text"
 }
