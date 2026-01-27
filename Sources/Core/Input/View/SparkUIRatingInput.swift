@@ -244,6 +244,8 @@ public final class SparkUIRatingInput: UIControl {
         self.isAccessibilityElement = true
         self.accessibilityIdentifier = RatingInputAccessibilityIdentifier.view
         self.accessibilityTraits = .adjustable
+        self.minimumContentSizeCategory = .large
+        self.maximumContentSizeCategory = .extraExtraExtraLarge
         self.updateAccessibilityValue()
     }
 

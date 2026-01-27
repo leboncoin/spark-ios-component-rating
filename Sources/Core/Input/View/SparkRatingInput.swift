@@ -158,6 +158,7 @@ public struct SparkRatingInput: View {
             rating: Double(self.value),
             numberOfStars: self.stars
         ))
+        .dynamicTypeSize(DynamicTypeSize.large...DynamicTypeSize.xxxLarge)
         .accessibilityAdjustableAction { direction in
             switch direction {
             case .increment:
