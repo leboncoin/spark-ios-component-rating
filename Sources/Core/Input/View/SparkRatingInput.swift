@@ -150,7 +150,7 @@ public struct SparkRatingInput: View {
         )
         .opacity(self.viewModel.dim)
         .sparkFrame(height: self.size)
-        .sparkSensoryFeedback(trigger: self.feedbackID)
+        .sparkSensoryFeedback(.selection, trigger: self.feedbackID)
         .accessibilityElement(children: .ignore)
         .accessibilityIdentifier(RatingInputAccessibilityIdentifier.view)
         .accessibilityAddTraits(.isButton)

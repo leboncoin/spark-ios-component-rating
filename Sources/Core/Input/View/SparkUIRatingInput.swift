@@ -234,8 +234,7 @@ public final class SparkUIRatingInput: UIControl {
         self.updateAccessibilityValue()
 
         // Haptic
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 
     // MARK: - Accessibility
