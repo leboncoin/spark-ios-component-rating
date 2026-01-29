@@ -96,23 +96,23 @@ import SparkCommon
 ///
 /// ### With .five star
 ///
-/// ![Rating rendering.](rating_diplay_default.png)
+/// ![Rating rendering.](rating_display_default.png)
 ///
 /// ### With .one star
 ///
-/// ![Rating rendering.](rating_diplay_one_star.png)
+/// ![Rating rendering.](rating_display_one_star.png)
 ///
 /// ### With .small size
 ///
-/// ![Rating rendering.](rating_diplay_small_size.png)
+/// ![Rating rendering.](rating_display_small_size.png)
 ///
 /// ### With text
 ///
-/// ![Rating rendering.](rating_diplay_with_text.png)
+/// ![Rating rendering.](rating_display_with_text.png)
 ///
 /// ### With label
 ///
-/// ![Rating rendering.](rating_diplay_with_label.png)
+/// ![Rating rendering.](rating_display_with_label.png)
 ///
 public struct SparkRatingDisplay<Label>: View where Label: View {
 
@@ -152,7 +152,7 @@ public struct SparkRatingDisplay<Label>: View where Label: View {
     ///
     /// ## Rendering
     ///
-    /// ![Rating rendering.](rating_diplay_default.png)
+    /// ![Rating rendering.](rating_display_default.png)
     public init(value: Double) where Label == EmptyView {
         self.value = value
         self.label = { EmptyView() }
@@ -185,7 +185,7 @@ public struct SparkRatingDisplay<Label>: View where Label: View {
     ///
     /// ## Rendering
     ///
-    /// ![Rating rendering.](rating_diplay_with_text.png)
+    /// ![Rating rendering.](rating_display_with_text.png)
     public init(
         value: Double,
         text: String
@@ -227,7 +227,7 @@ public struct SparkRatingDisplay<Label>: View where Label: View {
     ///
     /// ## Rendering
     ///
-    /// ![Rating rendering.](rating_diplay_with_label.png)
+    /// ![Rating rendering.](rating_display_with_label.png)
     public init(
         value: Double,
         @ViewBuilder label: @escaping () -> Label

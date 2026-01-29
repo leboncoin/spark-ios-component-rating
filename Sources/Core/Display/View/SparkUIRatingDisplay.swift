@@ -42,23 +42,23 @@ import Combine
 ///
 /// ### With .five star
 ///
-/// ![Rating rendering.](rating_diplay_default.png)
+/// ![Rating rendering.](rating_display_default.png)
 ///
 /// ### With .one star
 ///
-/// ![Rating rendering.](rating_diplay_one_star.png)
+/// ![Rating rendering.](rating_display_one_star.png)
 ///
 /// ### With .small size
 ///
-/// ![Rating rendering.](rating_diplay_small_size.png)
+/// ![Rating rendering.](rating_display_small_size.png)
 ///
 /// ### With text
 ///
-/// ![Rating rendering.](rating_diplay_with_text.png)
+/// ![Rating rendering.](rating_display_with_text.png)
 ///
 /// ### With attributedText
 ///
-/// ![Rating rendering.](rating_diplay_with_label.png)
+/// ![Rating rendering.](rating_display_with_label.png)
 ///
 public final class SparkUIRatingDisplay: UIView {
 
@@ -195,7 +195,7 @@ public final class SparkUIRatingDisplay: UIView {
     ///
     /// ## Rendering
     ///
-    /// ![Rating rendering.](rating_diplay_default.png)
+    /// ![Rating rendering.](rating_display_default.png)
     public init(theme: any Theme) {
         self.theme = theme
 
