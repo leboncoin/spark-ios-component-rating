@@ -33,7 +33,7 @@ To override this value, you need to set a new **accessibilityValue**.
 
 - Display
 
-![Rating rendering.](rating_diplay_default.png)
+![Rating rendering.](rating_display_default.png)
 
 - Input
 

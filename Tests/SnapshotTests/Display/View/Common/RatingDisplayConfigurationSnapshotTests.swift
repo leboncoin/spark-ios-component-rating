@@ -43,7 +43,7 @@ struct RatingDisplayConfigurationSnapshotTests {
 
     var testName: String {
         return if let documentationName {
-            "rating_diplay_" + documentationName
+            "rating_display_" + documentationName
         } else {
             self.scenario.rawValue
         }
