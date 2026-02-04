@@ -25,7 +25,7 @@ final class RatingInputGetNewValueUseCase: RatingInputGetNewValueUseCaseable {
         let stars = RatingInputConstants.stars
 
         let intRatio = switch ratio {
-        case ..<0: 0
+        case ..<0: 1
         case 1...: stars
         default: Int(ratio * CGFloat(stars)) + 1
         }
