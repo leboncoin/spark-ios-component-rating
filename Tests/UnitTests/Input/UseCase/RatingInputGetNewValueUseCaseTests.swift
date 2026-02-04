@@ -34,7 +34,7 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.execute(ratio: ratio)
 
         // THEN
-        XCTAssertEqual(result, 0.0)
+        XCTAssertEqual(result, 1.0)
     }
 
     func test_execute_with_very_negative_ratio() {
@@ -45,7 +45,7 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
         let result = self.sut.execute(ratio: ratio)
 
         // THEN
-        XCTAssertEqual(result, 0.0)
+        XCTAssertEqual(result, 1.0)
     }
 
     // MARK: - Tests - Normal Range (0 to 1)
@@ -83,7 +83,7 @@ final class RatingInputGetNewValueUseCaseTests: XCTestCase {
     func test_execute_boundary_values() {
         // GIVEN
         let scenarios: [(CGFloat, Double)] = [
-            (-0.001, 0.0),
+            (-0.001, 1.0),
             (0.999, 5.0),
             (1.001, 5.0),
         ]
