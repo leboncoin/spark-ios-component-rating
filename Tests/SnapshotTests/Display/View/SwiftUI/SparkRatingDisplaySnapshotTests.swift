@@ -35,7 +35,7 @@ final class SparkRatingDisplaySnapshotTests: SwiftUIComponentSnapshotTestCase {
                     .sparkRatingDisplaySize(configuration.size)
                     .sparkRatingDisplayStars(configuration.stars)
                     .padding(.horizontal, self.horizontalPadding(configuration: configuration))
-                    .padding(.vertical, 4)
+                    .padding(configuration)
                     .background(.background)
                     .fixedSize()
 
@@ -53,24 +53,96 @@ final class SparkRatingDisplaySnapshotTests: SwiftUIComponentSnapshotTestCase {
 
     @ViewBuilder
     private func component(_ configuration: RatingDisplayConfigurationSnapshotTests) -> some View {
-        switch configuration.text {
-        case .withoutText:
+
+        // Configure content based on configuration
+        let value = configuration.value.formattedValue
+        let count = "50"
+        let additional = "Excellent"
+
+        switch (configuration.content, configuration.contentType) {
+
+            // Without values
+
+        case (.none, _):
             SparkRatingDisplay(value: configuration.value.rawValue)
-        case .text:
+
+            // Value only
+
+        case (.value, .text):
             SparkRatingDisplay(
                 value: configuration.value.rawValue,
-                text: configuration.value.formattedValue + "/5"
+                text: value
             )
-        case .customText:
+
+        case (.value, .custom):
             SparkRatingDisplay(
                 value: configuration.value.rawValue,
                 label: {
-                    Group {
-                        Text(configuration.value.formattedValue)
-                            .bold()
-                            .foregroundColor(.blue) +
-                        Text("/5")
-                    }
+                    OtherContentView(text: value)
+                }
+            )
+
+            // Value & Count
+
+        case (.valueAndCount, .text):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueText: value,
+                countText: count
+            )
+
+        case (.valueAndCount, .custom):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueLabel: {
+                    OtherContentView(text: value)
+                },
+                countLabel: {
+                    OtherContentView(text: count)
+                }
+            )
+
+            // Value & Additional
+
+        case (.valueAndAdditional, .text):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueText: value,
+                additionalText: additional
+            )
+
+        case (.valueAndAdditional, .custom):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueLabel: {
+                    OtherContentView(text: value)
+                },
+                additionalLabel: {
+                    OtherContentView(text: additional)
+                }
+            )
+
+            // All Values
+
+        case (.allValues, .text):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueText: value,
+                countText: count,
+                additionalText: additional
+            )
+
+        case (.allValues, .custom):
+            SparkRatingDisplay(
+                value: configuration.value.rawValue,
+                valueLabel: {
+                    OtherContentView(text: value)
+                },
+                countLabel: {
+                    OtherContentView(text: count)
+                },
+                additionalLabel: {
+                    OtherContentView(text: additional)
                 }
             )
         }
@@ -85,6 +157,36 @@ final class SparkRatingDisplaySnapshotTests: SwiftUIComponentSnapshotTestCase {
         case (_, .medium): 12
         case (_, .large): 12
         default: 0
+        }
+    }
+}
+
+// MARK: - Other View
+
+private struct OtherContentView: View {
+    let text: String
+    var body: some View {
+        Group {
+            Text(self.text) +
+            Text("!")
+                .bold()
+                .foregroundColor(.blue)
+        }
+    }
+}
+
+// MARK: - Extension
+
+private extension View {
+
+    @ViewBuilder
+    func padding(_ configuration: RatingDisplayConfigurationSnapshotTests) -> some View {
+        let view = self.padding(.vertical, 4)
+
+        switch (configuration.stars, configuration.content) {
+        case (.five, .value), (.five, .valueAndCount): view.padding(.horizontal, 20)
+        case (.five, .valueAndAdditional), (.five, .allValues): view.padding(.horizontal, 40)
+        default: view
         }
     }
 }

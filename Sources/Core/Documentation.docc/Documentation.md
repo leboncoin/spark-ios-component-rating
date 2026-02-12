@@ -24,7 +24,6 @@ The component is available on **UIKit** and **SwiftUI** and requires at least **
 
 You must set an **accessibilityLabel** to give some context.
 
-
 By default, the component set an localized (english and french) **accessibilityValue**
 with the current value and the number of stars :"1 out of 5" / "1 sur 5".
 To override this value, you need to set a new **accessibilityValue**.

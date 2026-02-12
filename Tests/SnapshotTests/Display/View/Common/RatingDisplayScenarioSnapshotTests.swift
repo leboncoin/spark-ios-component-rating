@@ -59,17 +59,22 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
     ///  - size: all
     ///  - stars: default
     ///  - value: default
-    ///  - text: default
+    ///  - content: all
+    ///  - contentType: default
     ///  - mode: default
     ///  - size: default
     private func test1() -> [RatingDisplayConfigurationSnapshotTests] {
         let sizes = RatingDisplaySize.allCases
+        let contents = RatingDisplayContent.allCases
 
-        return sizes.map { size in
-            .init(
-                scenario: self,
-                size: size
-            )
+        return sizes.flatMap { size in
+            contents.map { content in
+                    .init(
+                        scenario: self,
+                        size: size,
+                        content: content
+                    )
+            }
         }
     }
 
@@ -81,7 +86,8 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
     ///  - size: default
     ///  - stars: all
     ///  - value: all
-    ///  - text: default
+    ///  - content:  default
+    ///  - contentType: default
     ///  - mode: default
     ///  - size: default
     private func test2() -> [RatingDisplayConfigurationSnapshotTests] {
@@ -107,17 +113,22 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
     ///  - size: default
     ///  - stars: default
     ///  - value: default
-    ///  - text: all
+    ///  - content: all
+    ///  - contentType: all
     ///  - mode: default
     ///  - size: default
     private func test3() -> [RatingDisplayConfigurationSnapshotTests] {
-        let texts = RatingDisplayText.allCases
+        let contents = RatingDisplayContent.allCases
+        let contentTypes = RatingDisplayContentType.allCases
 
-        return texts.map { text in
-                .init(
-                    scenario: self,
-                    text: text
-                )
+        return contents.flatMap { content in
+            contentTypes.map { contentType in
+                    .init(
+                        scenario: self,
+                        content: content,
+                        contentType: contentType
+                    )
+            }
         }
     }
 
@@ -129,14 +140,15 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
     ///  - size: default
     ///  - stars: default
     ///  - value: default
-    ///  - text: text
+    ///  - content: text
+    ///  - contentType: default
     ///  - mode: all
     ///  - size: default
     private func test4() -> [RatingDisplayConfigurationSnapshotTests] {
         return [
             .init(
                 scenario: self,
-                text: .text,
+                content: .value,
                 modes: Constants.Modes.all
             )
         ]
@@ -150,14 +162,15 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
     ///  - size: default
     ///  - stars: default
     ///  - value: default
-    ///  - text: text
+    ///  - content: all
+    ///  - contentType: default
     ///  - mode: default
     ///  - size: all
     private func test5() -> [RatingDisplayConfigurationSnapshotTests] {
         return [
             .init(
                 scenario: self,
-                text: .text,
+                content: .allValues,
                 sizes: Constants.Sizes.all
             )
         ]
@@ -189,18 +202,23 @@ enum RatingDisplayScenarioSnapshotTests: String, CaseIterable {
             documentationName: "small_size"
         ))
 
-        // Texts
-        let texts: [RatingDisplayText] = [
-            .text,
-            .customText
-        ]
+        // All contents with documentationName
+        let contents = RatingDisplayContent.allCases.filter { $0 != .none }
+        let contentTypes = RatingDisplayContentType.allCases
+        items.append(contentsOf: contents.flatMap { content in
+            contentTypes.map { contentType in
 
-        items.append(contentsOf: texts.map {
-            .init(
-                scenario: self,
-                text: $0,
-                documentationName: $0.documentationName
-            )
+                let documentationName = [content.documentationName, contentType.documentationName]
+                    .compactMap { $0 }
+                    .joined(separator: "_")
+
+                return RatingDisplayConfigurationSnapshotTests(
+                    scenario: self,
+                    content: content,
+                    contentType: contentType,
+                    documentationName: documentationName
+                )
+            }
         })
 
         return items
