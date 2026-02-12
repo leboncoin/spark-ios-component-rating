@@ -15,7 +15,7 @@ class RatingDisplayViewModel: RatingViewModel {
     // MARK: - Published Properties
 
     @Published private(set) var spacings = RatingDisplaySpacings()
-    @Published private(set) var textStyle = RatingDisplayTextStyle()
+    @Published private(set) var textStyles = RatingDisplayTextStyles()
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ class RatingDisplayViewModel: RatingViewModel {
             guard !oldValue.equals(self.theme), self.alreadyUpdateAll else { return }
 
             self.setSpacings()
-            self.setTextStyle()
+            self.setTextStyles()
         }
     }
 
@@ -32,7 +32,7 @@ class RatingDisplayViewModel: RatingViewModel {
         didSet {
             guard oldValue != self.size, self.alreadyUpdateAll else { return }
 
-            self.setTextStyle()
+            self.setTextStyles()
         }
     }
 
@@ -43,16 +43,16 @@ class RatingDisplayViewModel: RatingViewModel {
     // MARK: - Use Case Properties
 
     private let getSpacingUseCase: any RatingDisplayGetSpacingsUseCaseable
-    private let getTextStyleUseCase: any RatingDisplayGetTextStyleUseCaseable
+    private let getTextStylesUseCase: any RatingDisplayGetTextStylesUseCaseable
 
     // MARK: - Initialization
 
     init(
         getSpacingUseCase: any RatingDisplayGetSpacingsUseCaseable = RatingDisplayGetSpacingsUseCase(),
-        getTextStyleUseCase: any RatingDisplayGetTextStyleUseCaseable = RatingDisplayGetTextStyleUseCase()
+        getTextStylesUseCase: any RatingDisplayGetTextStylesUseCaseable = RatingDisplayGetTextStylesUseCase()
     ) {
         self.getSpacingUseCase = getSpacingUseCase
-        self.getTextStyleUseCase = getTextStyleUseCase
+        self.getTextStylesUseCase = getTextStylesUseCase
     }
 
     // MARK: - Setup
@@ -67,7 +67,7 @@ class RatingDisplayViewModel: RatingViewModel {
         self.setup(theme: theme)
 
         self.setSpacings()
-        self.setTextStyle()
+        self.setTextStyles()
 
         self.alreadyUpdateAll = true
     }
@@ -82,10 +82,10 @@ class RatingDisplayViewModel: RatingViewModel {
         )
     }
 
-    private func setTextStyle() {
+    private func setTextStyles() {
         guard let theme, let size else { return }
 
-        self.textStyle = self.getTextStyleUseCase.execute(
+        self.textStyles = self.getTextStylesUseCase.execute(
             theme: theme,
             size: size
         )

@@ -1,5 +1,5 @@
 //
-//  RatingDisplayTextStyle.swift
+//  RatingDisplayTextStyles.swift
 //  SparkComponentRating
 //
 //  Created by robin.lemaire on 07/01/2026.

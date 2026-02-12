@@ -28,7 +28,7 @@ final class RatingDisplayViewModelTests: XCTestCase {
         XCTAssertNotCalled(
             on: stub,
             getSpacingUseCase: true,
-            getTextStyleUseCase: true
+            getTextStylesUseCase: true
         )
     }
 
@@ -80,8 +80,8 @@ final class RatingDisplayViewModelTests: XCTestCase {
             expectedReturnValue: stub.expectedSpacings
         )
 
-        RatingDisplayGetTextStyleUseCaseableMockTest.XCTAssert(
-            stub.getTextStyleUseCaseMock,
+        RatingDisplayGetTextStylesUseCaseableMockTest.XCTAssert(
+            stub.getTextStylesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: newTheme,
             givenSize: stub.givenSize,
@@ -107,8 +107,8 @@ final class RatingDisplayViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqualToExpected(on: stub)
 
-        RatingDisplayGetTextStyleUseCaseableMockTest.XCTAssert(
-            stub.getTextStyleUseCaseMock,
+        RatingDisplayGetTextStylesUseCaseableMockTest.XCTAssert(
+            stub.getTextStylesUseCaseMock,
             expectedNumberOfCalls: 1,
             givenTheme: stub.givenTheme,
             givenSize: newSize,
@@ -134,13 +134,13 @@ final class RatingDisplayViewModelTests: XCTestCase {
         XCTAssertEqualToExpected(
             on: stub,
             otherSpacings: RatingDisplaySpacings(),
-            otherTextStyle: RatingDisplayTextStyle()
+            otherTextStyle: RatingDisplayTextStyles()
         )
 
         XCTAssertNotCalled(
             on: stub,
             getSpacingUseCase: true,
-            getTextStyleUseCase: true
+            getTextStylesUseCase: true
         )
     }
 
@@ -162,7 +162,7 @@ final class RatingDisplayViewModelTests: XCTestCase {
         XCTAssertNotCalled(
             on: stub,
             getSpacingUseCase: true,
-            getTextStyleUseCase: true
+            getTextStylesUseCase: true
         )
     }
 
@@ -184,7 +184,7 @@ final class RatingDisplayViewModelTests: XCTestCase {
         XCTAssertNotCalled(
             on: stub,
             getSpacingUseCase: true,
-            getTextStyleUseCase: true
+            getTextStylesUseCase: true
         )
     }
 }
@@ -205,15 +205,25 @@ private final class Stub {
         content: 0.5,
         stars: 1.5
     )
-    let expectedTextStyle = RatingDisplayTextStyle(
-        fontToken: TypographyFontTokenGeneratedMock.mocked(),
-        colorToken: ColorTokenGeneratedMock.blue()
+    let expectedTextStyle = RatingDisplayTextStyles(
+        value: .init(
+            fontToken: TypographyFontTokenGeneratedMock.mocked(),
+            colorToken: ColorTokenGeneratedMock.blue()
+        ),
+        count: .init(
+            fontToken: TypographyFontTokenGeneratedMock.mocked(),
+            colorToken: ColorTokenGeneratedMock.red()
+        ),
+        additional: .init(
+            fontToken: TypographyFontTokenGeneratedMock.mocked(),
+            colorToken: ColorTokenGeneratedMock.yellow()
+        )
     )
 
     // MARK: - Use Case Mocks
 
     let getSpacingsUseCaseMock: RatingDisplayGetSpacingsUseCaseableGeneratedMock
-    let getTextStyleUseCaseMock: RatingDisplayGetTextStyleUseCaseableGeneratedMock
+    let getTextStylesUseCaseMock: RatingDisplayGetTextStylesUseCaseableGeneratedMock
 
     // MARK: - ViewModel
 
@@ -225,23 +235,23 @@ private final class Stub {
         let getSpacingsUseCaseMock = RatingDisplayGetSpacingsUseCaseableGeneratedMock()
         getSpacingsUseCaseMock.executeWithThemeReturnValue = self.expectedSpacings
 
-        let getTextStyleUseCaseMock = RatingDisplayGetTextStyleUseCaseableGeneratedMock()
-        getTextStyleUseCaseMock.executeWithThemeAndSizeReturnValue = self.expectedTextStyle
+        let getTextStylesUseCaseMock = RatingDisplayGetTextStylesUseCaseableGeneratedMock()
+        getTextStylesUseCaseMock.executeWithThemeAndSizeReturnValue = self.expectedTextStyle
 
         self.viewModel = RatingDisplayViewModel(
             getSpacingUseCase: getSpacingsUseCaseMock,
-            getTextStyleUseCase: getTextStyleUseCaseMock
+            getTextStylesUseCase: getTextStylesUseCaseMock
         )
 
         self.getSpacingsUseCaseMock = getSpacingsUseCaseMock
-        self.getTextStyleUseCaseMock = getTextStyleUseCaseMock
+        self.getTextStylesUseCaseMock = getTextStylesUseCaseMock
     }
 
     // MARK: - Helpers
 
     func resetMockedData() {
         self.getSpacingsUseCaseMock.reset()
-        self.getTextStyleUseCaseMock.reset()
+        self.getTextStylesUseCaseMock.reset()
     }
 }
 
@@ -260,23 +270,23 @@ private extension RatingDisplayViewModel {
 private func XCTAssertNotCalled(
     on stub: Stub,
     getSpacingUseCase: Bool = false,
-    getTextStyleUseCase: Bool = false
+    getTextStylesUseCase: Bool = false
 ) {
     RatingDisplayGetSpacingsUseCaseableMockTest.XCTCalled(
         stub.getSpacingsUseCaseMock,
         executeWithThemeCalled: !getSpacingUseCase
     )
 
-    RatingDisplayGetTextStyleUseCaseableMockTest.XCTCalled(
-        stub.getTextStyleUseCaseMock,
-        executeWithThemeAndSizeCalled: !getTextStyleUseCase
+    RatingDisplayGetTextStylesUseCaseableMockTest.XCTCalled(
+        stub.getTextStylesUseCaseMock,
+        executeWithThemeAndSizeCalled: !getTextStylesUseCase
     )
 }
 
 private func XCTAssertEqualToExpected(
     on stub: Stub,
     otherSpacings: RatingDisplaySpacings? = nil,
-    otherTextStyle: RatingDisplayTextStyle? = nil
+    otherTextStyle: RatingDisplayTextStyles? = nil
 ) {
     let viewModel = stub.viewModel
 
@@ -287,8 +297,8 @@ private func XCTAssertEqualToExpected(
     )
 
     XCTAssertEqual(
-        viewModel.textStyle,
+        viewModel.textStyles,
         otherTextStyle ?? stub.expectedTextStyle,
-        "Wrong textStyle value"
+        "Wrong textStyles value"
     )
 }

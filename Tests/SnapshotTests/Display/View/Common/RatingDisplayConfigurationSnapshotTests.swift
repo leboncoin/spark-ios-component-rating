@@ -18,7 +18,8 @@ struct RatingDisplayConfigurationSnapshotTests {
 
     var size: RatingDisplaySize = .default
     var stars: RatingDisplayStars = .default
-    var text: RatingDisplayText = .default
+    var content: RatingDisplayContent = .default
+    var contentType: RatingDisplayContentType = .default
     var value: RatingValues = .default
 
     var modes: [ComponentSnapshotTestMode] = ComponentSnapshotTestConstants.Modes.default
@@ -35,7 +36,8 @@ struct RatingDisplayConfigurationSnapshotTests {
             "\(self.stars)" + "Stars",
             "\(self.size)" + "Size",
             "ValueIs" + self.value.formattedValue,
-            self.text.name
+            "\(self.content)" + "Content",
+            "\(self.contentType)" + "ContentType"
         ]
             .compactMap { $0 }
             .joined(separator: "-")
@@ -54,30 +56,36 @@ struct RatingDisplayConfigurationSnapshotTests {
 
 // MARK: - Enum
 
-enum RatingDisplayText: String, CaseIterable {
-    case withoutText
-    case text
-    case customText
+enum RatingDisplayContent: String, CaseIterable {
+    case none
+    case value
+    case valueAndCount
+    case valueAndAdditional
+    case allValues
 
-    static var `default`: Self = .withoutText
+    static var `default` = Self.none
 
-    var name: String? {
-        self == .withoutText ? nil : self.rawValue
-    }
-
-    var text: String? {
+    var documentationName: String? {
         switch self {
-        case .withoutText: nil
-        case .text: "My Text"
-        case .customText: nil
+        case .none: nil
+        case .value: nil
+        case .valueAndCount: "value_and_count"
+        case .valueAndAdditional: "value_and_additional"
+        case .allValues: "all"
         }
     }
+}
+
+enum RatingDisplayContentType: String, CaseIterable {
+    case text
+    case custom
+
+    static var `default` = Self.text
 
     var documentationName: String {
         switch self {
-        case .withoutText: ""
-        case .text: "with_text"
-        case .customText: "with_label"
+        case .text: "text"
+        case .custom: "label"
         }
     }
 }

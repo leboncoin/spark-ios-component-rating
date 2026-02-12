@@ -33,7 +33,7 @@ import Combine
 ///
 /// By default, the component set an localized **accessibilityValue**
 /// with the current value and the number of stars :"1 out of 5" / "1 sur 5".
-/// To override this value, you need to set a ne **accessibilityValue**.
+/// To override this value, you need to set a new **accessibilityValue**.
 ///
 /// ## Rendering
 ///

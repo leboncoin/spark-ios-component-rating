@@ -17,6 +17,23 @@
           }
         }
       }
+    },
+    "accessiiblity_label_display_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "based on %@ reviews"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "basé sur %@ avis"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

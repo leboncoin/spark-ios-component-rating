@@ -66,24 +66,88 @@ final class SparkUIRatingDisplaySnapshotTests: UIKitComponentSnapshotTestCase {
 private extension SparkUIRatingDisplay {
 
     func text(configuration: RatingDisplayConfigurationSnapshotTests) {
-        switch configuration.text {
-        case .customText:
-            let customAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.blue,
-                .underlineStyle: NSUnderlineStyle.single.rawValue
-            ]
 
-            let attributedString = NSMutableAttributedString(
-                string: "\(configuration.value.formattedValue)/5"
-            )
-            attributedString.addAttributes(
-                customAttributes,
-                range: .init(location: 0, length: 1)
-            )
+        // Configure content based on configuration
+        let value = configuration.value.formattedValue
+        let count = "50"
+        let additional = "Excellent"
 
-            self.attributedText = attributedString
-        default:
-            self.text = configuration.text.text
+        switch (configuration.content, configuration.contentType) {
+
+            // Without values
+
+        case (.none, _):
+            break
+
+            // Value only
+
+        case (.value, .text):
+            self.text = value
+
+        case (.value, .custom):
+            self.attributedText = .mock(value)
+
+            // Value & Count
+
+        case (.valueAndCount, .text):
+            self.text = value
+            self.countText = count
+
+        case (.valueAndCount, .custom):
+            self.attributedText = .mock(value)
+            self.attributedCountText = .mock(count)
+
+            // Value & Additional
+
+        case (.valueAndAdditional, .text):
+            self.text = value
+            self.additionalText = additional
+
+        case (.valueAndAdditional, .custom):
+            self.attributedText = .mock(value)
+            self.attributedAdditionalText = .mock(additional)
+
+            // All Values
+
+        case (.allValues, .text):
+            self.text = value
+            self.countText = count
+            self.additionalText = additional
+
+        case (.allValues, .custom):
+            self.attributedText = .mock(value)
+            self.attributedCountText = .mock(count)
+            self.attributedAdditionalText = .mock(additional)
         }
+    }
+}
+
+// MARK: - Extension
+
+private extension NSAttributedString {
+
+    static func mock(_ text: String) -> NSMutableAttributedString {
+        let attributedString = NSMutableAttributedString()
+
+        // Add value text
+        let valueString = NSAttributedString(
+            string: text,
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 14)
+            ]
+        )
+        attributedString.append(valueString)
+
+        // Add a symbol in bold and blue
+        let percentString = NSAttributedString(
+            string: "!",
+            attributes: [
+                .font: UIFont.boldSystemFont(ofSize: 14),
+                .foregroundColor: UIColor.systemBlue
+            ]
+        )
+        attributedString.append(percentString)
+
+        return attributedString
     }
 }
