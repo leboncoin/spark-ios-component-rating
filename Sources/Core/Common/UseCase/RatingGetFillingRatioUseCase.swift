@@ -39,13 +39,7 @@ final class RatingGetFillingRatioUseCase: RatingGetFillingRatioUseCaseable {
             rating - Double(index)
         }
 
-        switch ratio {
-        case 0.25..<0.75:
-            return 0.5
-        case 0.75...:
-            return 1
-        default:
-            return 0
-        }
+        let rounded = round(ratio * 2) / 2
+        return min(max(rounded, 0), 1)
     }
 }
